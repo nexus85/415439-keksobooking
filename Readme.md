@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Наталья Волчатова](https://up.htmlacademy.ru/javascript/11/user/415439).
-* Наставник: `Неизвестно`.
+* Наставник: [Антон Попов](https://github.com/ademaro).
 
 ---
 
