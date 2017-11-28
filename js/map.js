@@ -1,26 +1,27 @@
 'use strict';
 
+// function returns a random value.
 var getRandomValue = function (minValue, maxValue) {
   return Math.random() * (maxValue - minValue) + minValue;
 };
-// var offer = [title, address, price, type, guests, checkin, checkout, features, description];
+
+// arrays
 var title = ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'];
 var type = ['flat', 'house', 'bungalo'];
 var checkin = ['12:00', '13:00', '14:00'];
 var checkout = ['12:00', '13:00', '14:00'];
 var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var avatars = [1, 2, 3, 4, 5, 6, 7, 8];
-var offers = [];
 var template = document.querySelector('template').content.querySelector('.map__card');
 var bookingItems = [];
 var totalAds = 8;
 
-// function makes random elements unique.
+// function makes the random elements unique.
 function noRepeat(array) {
   return array.splice(Math.floor(Math.random() * array.length), 1);
 }
 
-// function creates array of items available for booking.
+// function creates an array of items available for booking.
 function createBookingItemsArray(totalItems) {
   for (var i = 0; i < totalItems; i++) {
     bookingItems.push({});
@@ -46,7 +47,7 @@ function createBookingItemsArray(totalItems) {
 
 createBookingItemsArray(totalAds);
 
-// create Pins
+// creates Pins
 var mapPins = document.querySelector('.map__pins');
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < totalAds; i++) {
@@ -70,7 +71,7 @@ function russianLanguage(russianType) {
   return houseType[russianType];
 }
 
-// removes '.map--faded' class from map.
+// removes '.map--faded' class from the map.
 var userPopup = document.querySelector('.map');
 userPopup.classList.remove('map--faded');
 
@@ -81,6 +82,7 @@ var before = document.querySelector('.map__filters-container');
 var nodeParent = before.parentNode;
 nodeParent.insertBefore(card, before); // inserts card before .map__filters-container:
 
+// creates a new card based on first element from bookingItems array.
 
 card.querySelector('h3').textContent = bookingItems[0].offer.title;
 card.querySelector('small').textContent = bookingItems[0].offer.address;
@@ -91,7 +93,7 @@ card.getElementsByTagName('p')[3].textContent = 'Заезд после ' + booki
 card.getElementsByTagName('p')[4].textContent = bookingItems[0].offer.description;
 card.querySelector('.popup__avatar').src = bookingItems[0].author.avatar;
 
-// creates li and inserts it inside ".popup__features".
+// creates a list and inserts it into the ".popup__features".
 popupUl.innerHTML = '';
 for (var i = 0; i < 6; i++) {
   var list = '<li class="feature feature--' + bookingItems[i].offer.features + '"></li>';
