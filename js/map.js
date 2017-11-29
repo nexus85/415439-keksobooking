@@ -95,7 +95,7 @@ card.querySelector('.popup__avatar').src = bookingItems[0].author.avatar;
 
 // creates a list and inserts it into the ".popup__features".
 popupUl.innerHTML = '';
-for (var i = 0; i < 6; i++) {
-  var list = '<li class="feature feature--' + bookingItems[i].offer.features + '"></li>';
+for (var j = 0; j < 6; j++) {
+  var list = '<li class="feature feature--' + bookingItems[j].offer.features + '"></li>';
   popupUl.insertAdjacentHTML('afterbegin', list);
 }
