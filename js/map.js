@@ -75,7 +75,6 @@ function russianLanguage(russianType) {
 var userPopup = document.querySelector('.map');
 userPopup.classList.remove('map--faded');
 
-
 var card = document.body.appendChild(template.cloneNode(true)); // new card element from template
 var popupUl = card.querySelector('.popup__features');
 var before = document.querySelector('.map__filters-container');
