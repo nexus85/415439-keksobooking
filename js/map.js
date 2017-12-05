@@ -152,6 +152,7 @@ var fieldsetFilter = document.querySelector('.map__filter-set');
 fieldsetFilter.disabled = true;
 var fieldsetNotice = document.querySelector('.notice__header');
 fieldsetNotice.disabled = true;
+var noticeForm = document.querySelector('.notice__form');
 // makes disabled all fieldsets
 var formElement = document.querySelectorAll('.form__element');
 for (var k = 0; k < formElement.length; k++) {
@@ -174,6 +175,7 @@ function activateMap() {
   createPins();
   fieldsetNotice.disabled = false;
   fieldsetFilter.disabled = false;
+  noticeForm.classList.remove('notice__form--disabled');
   form.classList.remove('notice__form--disabled');
   mapPins.appendChild(fragment);
 }
@@ -274,3 +276,5 @@ document.addEventListener('keydown', function (evt) {
     removeActiveClass();
   }
 });
+
+// Validation ////////////////
