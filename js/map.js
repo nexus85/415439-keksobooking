@@ -278,3 +278,109 @@ document.addEventListener('keydown', function (evt) {
 });
 
 // Validation ////////////////
+// 4.2.2.1 sync for checkin and checkout
+var timeIn = document.querySelector('#timein');
+var timeOut = document.querySelector('#timeout');
+function synchroniseTimeIn() {
+  timeIn.value = timeOut.value;
+  return timeOut.value;
+}
+function synchroniseTimeOut() {
+  timeOut.value = timeIn.value;
+  return timeIn.value;
+}
+
+timeIn.addEventListener('change', synchroniseTimeOut);
+timeOut.addEventListener('change', synchroniseTimeIn);
+
+// 4.2.2.2 sync for type and price
+var typeSelect = noticeForm.querySelector('#type');
+var priceSelect = noticeForm.querySelector('#price');
+function synchroniseTypeAndPrice() {
+  var newValue = typeSelect.value;
+  switch (newValue) {
+    case 'bungalo': priceSelect.min = 0;
+      break;
+    case 'flat': priceSelect.min = 1000;
+      break;
+    case 'house': priceSelect.min = 5000;
+      break;
+    case 'palace': priceSelect.min = 10000;
+      break;
+  }
+}
+typeSelect.addEventListener('change', synchroniseTypeAndPrice);
+
+// 4.2.2.3 sync for rooms and guests
+var roomsSelect = noticeForm.querySelector('#room_number');
+var guestsSelect = noticeForm.querySelector('#capacity');
+function synchroniseRoomsAndGuests() {
+  var newValue = roomsSelect.value;
+  switch (newValue) {
+    case '1': guestsSelect.value = 1;
+      break;
+    case '2': guestsSelect.value = 2;
+      break;
+    case '3': guestsSelect.value = 3;
+      break;
+    case '100': guestsSelect.value = 0;
+      break;
+  }
+}
+roomsSelect.addEventListener('change', synchroniseRoomsAndGuests);
+
+//  Validation
+// var formSubmit = noticeForm.querySelector('.form__submit');
+var addressForm = noticeForm.querySelector('#address');
+var titleForm = noticeForm.querySelector('#title');
+var priceForm = noticeForm.querySelector('#price');
+
+var generateBorder = function (element) {
+  element.style.borderWidth = '2px';
+  element.style.borderColor = 'red';
+};
+
+var resetBorder = function (element) {
+  element.style.borderWidth = '';
+  element.style.borderColor = '';
+};
+
+var checkTitleValidity = function () {
+  generateBorder(titleForm);
+  if (titleForm.validity.tooShort) {
+    titleForm.setCustomValidity('Заголовок должен быть не менее 30-ти символов');
+  } else if (titleForm.validity.tooLong) {
+    titleForm.setCustomValidity('Заголовок не должен быть не более 100 символов');
+  } else if (titleForm.validity.valueMissing) {
+    titleForm.setCustomValidity('Обязательное поле');
+  } else {
+    titleForm.setCustomValidity('');
+    resetBorder(titleForm);
+  }
+};
+titleForm.addEventListener('invalid', checkTitleValidity);
+
+var checkPriceValidity = function () {
+  generateBorder(priceForm);
+  if (priceForm.validity.rangeUnderflow) {
+    priceForm.setCustomValidity('Цена не соответсвует выбраннному типу жилья. Пожалуйста, повысьте диапозон или укажите другой тип размещения');
+  } else if (priceForm.validity.rangeOverflow) {
+    priceForm.setCustomValidity('Стоимость жилья выше рекомендуемой');
+  } else {
+    priceForm.setCustomValidity('');
+    resetBorder(priceForm);
+  }
+};
+
+priceForm.addEventListener('invalid', checkPriceValidity);
+addressForm.style = 'pointer-events: none;';
+var checkAddressValidity = function () {
+  if (addressForm.validity.valueMissing) {
+    addressForm.setCustomValidity('Поле адреса не может быть пустым');
+    generateBorder(addressForm);
+  } else {
+    resetBorder(addressForm);
+  }
+};
+
+addressForm.addEventListener('invalid', checkAddressValidity);
