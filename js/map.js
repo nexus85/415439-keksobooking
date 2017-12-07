@@ -33,6 +33,7 @@ var avatars = [1, 2, 3, 4, 5, 6, 7, 8];
 var template = document.querySelector('template').content.querySelector('.map__card');
 var totalAds = 8; // total Ads
 var newAd = []; //
+
 /**
 * @function generateNoRepeatNumber function makes the random elements unique.
   @param {array} array we work with
@@ -84,6 +85,8 @@ function createBookingItemsArray(totalItems) {
   return card;
 }
 newAd = createBookingItemsArray(totalAds);
+
+var pinY = 40; // pin height in px
 /**
 * @function createPins function creates Pins.
 */
@@ -94,7 +97,7 @@ function createPins() {
   for (var i = 0; i < totalAds; i++) {
     var pin = mapPins.appendChild(templatePin.cloneNode(true));
     var image = pin.getElementsByTagName('img')[0];
-    pin.setAttribute('style', 'left:' + newAd[i].location.x + 'px;' + 'top:' + newAd[i].location.y + 'px;');
+    pin.setAttribute('style', 'left:' + newAd[i].location.x + 'px;' + 'top:' + (newAd[i].location.y + pinY) + 'px;');
     pin.setAttribute('data-id', i);
     image.setAttribute('src', newAd[i]. author.avatar);
     pin.addEventListener('click', generateCard);
