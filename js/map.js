@@ -414,3 +414,15 @@ var checkPriceValidityHandler = function () {
 };
 
 priceForm.addEventListener('invalid', checkPriceValidityHandler);
+// validate on submit
+var submitForm = document.querySelector('.form__submit');
+function validateForm() {
+  if (titleForm === ' ') {
+    generateBorder(titleForm);
+    return false;
+  } else {
+    resetBorder(titleForm);
+    return true;
+  }
+}
+submitForm.addEventListener('click', validateForm);
