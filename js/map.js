@@ -15,10 +15,13 @@ var title = [
   'Уютное бунгало далеко от моря',
   'Неуютное бунгало по колено в воде'
 ];
-var type = ['flat',
-  'house',
-  'bungalo'
-];
+
+var type = {
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalo: 'Бунгало'
+};
+
 var checkin = ['12:00', '13:00', '14:00'];
 var checkout = ['12:00', '13:00', '14:00'];
 var features = [
@@ -66,7 +69,7 @@ function createBookingItemsArray(totalItems) {
       offer: {
         title: generateNoRepeatNumber(title),
         price: getRandomValue(1000, 1000000).toFixed(0),
-        type: type[Math.floor(Math.random() * type.length)],
+        type: generateNoRepeatNumber(Object.values(type)),
         rooms: getRandomValue(1, 5).toFixed(0),
         guests: getRandomValue(1, 8).toFixed(0),
         checkin: checkin[Math.floor(Math.random() * checkin.length)],
@@ -107,15 +110,6 @@ function createPins() {
 }
 
 // function returns russian language;
-function russianLanguage(russianType) {
-
-  var houseType = {
-    'flat': 'Квартира',
-    'house': 'Дом',
-    'bungalo': 'Бунгало'
-  };
-  return houseType[russianType];
-}
 
 var userPopup = document.querySelector('.map');
 var card = document.body.appendChild(template.cloneNode(true)); // new card element from template
@@ -131,7 +125,7 @@ var generateCard = function () {
   card.querySelector('h3').textContent = newAd[id].offer.title;
   card.querySelector('small').textContent = newAd[id].offer.address;
   card.querySelector('.popup__price').textContent = newAd[id].offer.price + '\u20bd/ночь';
-  card.querySelector('h4').textContent = russianLanguage(newAd[id].offer.type);
+  card.querySelector('h4').textContent = newAd[id].offer.type;
   card.getElementsByTagName('p')[2].textContent = newAd[id].offer.rooms + ' комнаты для ' + newAd[id].offer.guests + ' гостей';
   card.getElementsByTagName('p')[3].textContent = 'Заезд после ' + newAd[id].offer.checkin + ', выезд до ' + newAd[id].offer.checkout;
   card.getElementsByTagName('p')[4].textContent = newAd[id].offer.description;
