@@ -30,7 +30,7 @@
     }
   };
 
-  // Validation ////////////////
+  // Validation ///////////////
   // 4.2.2.1 sync for checkin and checkout
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
