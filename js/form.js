@@ -100,7 +100,6 @@
   }
   roomsSelect.addEventListener('change', synchroniseRoomsAndGuestsHandler);
 
-
   var titleForm = noticeForm.querySelector('#title');
   var priceForm = noticeForm.querySelector('#price');
 
