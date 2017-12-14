@@ -3,7 +3,7 @@
   var ENTER_KEYCODE = 13;
   var mainPin = document.querySelector('.map__pin--main');
   var newAd = window.data.newAd;
-  var generateCard = window.generateCard;
+  var showCard = window.showCard;
   var locationY = {
     min: 100,
     max: 500
@@ -27,7 +27,7 @@
 
   function activateMap() {
     userPopup.classList.remove('map--faded');
-    window.createPins(newAd, generateCard);
+    window.createPins(newAd, showCard);
     window.form.activateForm();
     // drag and drop!!!
     mainPin.addEventListener('mousedown', function (evt) {

@@ -79,6 +79,8 @@
   }
   newAd = createBookingItems(totalAds);
   window.data = {
-    newAd: newAd
+    newAd: newAd,
+    checkin: checkin,
+    checkout: checkout
   };
 })();
