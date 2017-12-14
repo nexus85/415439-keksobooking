@@ -4,7 +4,7 @@ window.pin = (function () {
 * @function createPins function creates Pins.
 */
 
-  window.createPins = function (newAd, generateCard) {
+  window.createPins = function (newAd, showCard) {
     var pinY = 40; // pin height in px
     var totalAds = 8;
     var mapPins = document.querySelector('.map__pins');
@@ -16,7 +16,7 @@ window.pin = (function () {
       pin.setAttribute('style', 'left:' + newAd[i].location.x + 'px;' + 'top:' + (newAd[i].location.y + pinY) + 'px;');
       pin.setAttribute('data-id', i);
       image.setAttribute('src', newAd[i]. author.avatar);
-      pin.addEventListener('click', generateCard);
+      pin.addEventListener('click', showCard);
       fragment.appendChild(pin);
       mapPins.appendChild(fragment);
     }

@@ -3,6 +3,45 @@
 //  Validation
 // var formSubmit = noticeForm.querySelector('.form__submit');
 (function () {
+  // arrays for validation
+  var accomodationType = [
+    'bungalo',
+    'flat',
+    'house',
+    'palace'
+  ];
+
+  var price = [
+    '0',
+    '1000',
+    '5000',
+    '10000'
+  ];
+
+  var capacity = [
+    '1',
+    '2',
+    '3',
+    '0'
+  ];
+
+  var roomsNumber = [
+    '1',
+    '2',
+    '3',
+    '100'
+  ];
+  var checkin = [
+    '12:00',
+    '13:00',
+    '14:00'
+  ];
+  var checkout = [
+    '12:00',
+    '13:00',
+    '14:00'
+  ];
+
   // makes form disabled
   var form = document.querySelector('.map__filters');
   form.classList.add('notice__form--disabled');
@@ -35,70 +74,41 @@
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
 
-  /**
-  * @function  synchroniseTimeIn sync for checkin
-  */
 
-  function synchroniseTimeInHandler() {
-    timeIn.value = timeOut.value;
-    return timeOut.value;
-  }
+  // sync checkin and checkout
+  var syncValues = function (element, value) {
+    element.value = value;
+  };
 
-  /**
-  * @function  synchroniseTimeIn sync for checkout
-  */
+  timeIn.addEventListener('change', function () {
+    window.synchronizeFields(timeIn, timeOut, checkin, checkout, syncValues);
+  });
 
-  function synchroniseTimeOutHandler() {
-    timeOut.value = timeIn.value;
-    return timeIn.value;
-  }
+  timeOut.addEventListener('change', function () {
+    window.synchronizeFields(timeOut, timeIn, checkin, checkout, syncValues);
+  });
 
-  timeIn.addEventListener('change', synchroniseTimeOutHandler);
-  timeOut.addEventListener('change', synchroniseTimeInHandler);
 
   // 4.2.2.2 sync for type and price
   var typeSelect = noticeForm.querySelector('#type');
   var priceSelect = noticeForm.querySelector('#price');
-  /**
-  * @function  synchroniseTypeAndPriceHandler sync for type and price
-  */
 
-  function synchroniseTypeAndPriceHandler() {
-    var newValue = typeSelect.value;
-    switch (newValue) {
-      case 'bungalo': priceSelect.min = 0;
-        break;
-      case 'flat': priceSelect.min = 1000;
-        break;
-      case 'house': priceSelect.min = 5000;
-        break;
-      case 'palace': priceSelect.min = 10000;
-        break;
-    }
-  }
-  typeSelect.addEventListener('change', synchroniseTypeAndPriceHandler);
+  var syncValueWithMin = function (element, value) {
+    element.min = value;
+  };
+
+  typeSelect.addEventListener('change', function () {
+    window.synchronizeFields(typeSelect, priceSelect, accomodationType, price, syncValueWithMin);
+  });
 
   // 4.2.2.3 sync for rooms and guests
+
   var roomsSelect = noticeForm.querySelector('#room_number');
   var guestsSelect = noticeForm.querySelector('#capacity');
-  /**
-  * @function  synchroniseRoomsAndGuestsHandler sync for rooms and guests
-  */
 
-  function synchroniseRoomsAndGuestsHandler() {
-    var newValue = roomsSelect.value;
-    switch (newValue) {
-      case '1': guestsSelect.value = 1;
-        break;
-      case '2': guestsSelect.value = 2;
-        break;
-      case '3': guestsSelect.value = 3;
-        break;
-      case '100': guestsSelect.value = 0;
-        break;
-    }
-  }
-  roomsSelect.addEventListener('change', synchroniseRoomsAndGuestsHandler);
+  roomsSelect.addEventListener('change', function () {
+    window.synchronizeFields(roomsSelect, guestsSelect, roomsNumber, capacity, syncValues);
+  });
 
   var titleForm = noticeForm.querySelector('#title');
   var priceForm = noticeForm.querySelector('#price');
