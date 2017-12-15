@@ -10,21 +10,18 @@
     'house',
     'palace'
   ];
-
   var price = [
     '0',
     '1000',
     '5000',
     '10000'
   ];
-
   var capacity = [
     '1',
     '2',
     '3',
     '0'
   ];
-
   var roomsNumber = [
     '1',
     '2',
