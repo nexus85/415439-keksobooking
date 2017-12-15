@@ -28,6 +28,8 @@
   function activateMap() {
     userPopup.classList.remove('map--faded');
     window.createPins(newAd, showCard);
+    mainPin.removeEventListener('keydown', activateMapOnEnterHandler);
+    mainPin.removeEventListener('mouseup', activateMap);
     window.form.activateForm();
     // drag and drop!!!
     mainPin.addEventListener('mousedown', function (evt) {
@@ -89,10 +91,11 @@
   mainPin.addEventListener('mouseup', activateMap);
 
   // map activates when enter pressed
-  document.addEventListener('keydown', function (event) {
+  var activateMapOnEnterHandler = function (event) {
     if (event.keyCode === ENTER_KEYCODE) {
       activateMap();
     }
-  });
+  };
+  mainPin.addEventListener('keydown', activateMapOnEnterHandler);
 
 })();
