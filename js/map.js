@@ -13,8 +13,8 @@
   var MAIN_PIN_WIDTH = 62;
   var ARROW_HEIGHT = 10;
   var mainPin = document.querySelector('.map__pin--main');
-  var newAd = window.data.newAd;
-  var showCard = window.showCard;
+  //  var newAd = window.data.newAd;
+  // var showCard = window.showCard;
   var userPopup = document.querySelector('.map');
   var addressInput = document.querySelector('#address');
 
@@ -22,11 +22,11 @@
   * @function  activateMap form and map activates on mouseup
   */
 
-  function activateMap() {
+  function activateMapHandler() {
     userPopup.classList.remove('map--faded');
-    window.createPins(newAd, showCard);
+    window.backend.load(onLoad);
     mainPin.removeEventListener('keydown', activateMapOnEnterHandler);
-    mainPin.removeEventListener('mouseup', activateMap);
+    mainPin.removeEventListener('mouseup', activateMapHandler);
     window.form.activateForm();
     // drag and drop!!!
     mainPin.addEventListener('mousedown', function (evt) {
@@ -83,14 +83,18 @@
     });
   }
   // form and map activates on mouseup
-  mainPin.addEventListener('mouseup', activateMap);
-
+  mainPin.addEventListener('mouseup', activateMapHandler);
   // map activates when enter pressed
   var activateMapOnEnterHandler = function (event) {
     if (event.keyCode === ENTER_KEYCODE) {
-      activateMap();
+      activateMapHandler();
     }
   };
   mainPin.addEventListener('keydown', activateMapOnEnterHandler);
 
+  // backend!!!!!!!!!!!!!
+  var onLoad = function (data) {
+    window.pin.createPins(data);
+  };
+// ////////////////////////////
 })();

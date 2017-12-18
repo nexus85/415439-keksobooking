@@ -1,10 +1,12 @@
 'use strict';
-window.pin = (function () {
-/**
-* @function createPins function creates Pins.
-*/
+(function () {
+  var showCard = window.showCard.openPopup;
 
-  window.createPins = function (newAd, showCard) {
+  /**
+  * @function createPins function creates Pins.
+  */
+
+  var createPins = function (newAd) {
     var pinY = 40; // pin height in px
     var totalAds = 8;
     var mapPins = document.querySelector('.map__pins');
@@ -24,11 +26,6 @@ window.pin = (function () {
   var selectedPin;
   // parent container
   var container = document.querySelector('.map__pins');
-
-  /**
-  * @function  addEventListener function shows advertisement adn switches classes when pin activated.
-    @param {object} event - event
-  */
   container.addEventListener('click', function (event) {
     var target = event.target;
     // cycle goes up from target to parent and container
@@ -41,7 +38,7 @@ window.pin = (function () {
       target = target.parentNode;
     }
   });
-  var popup = document.querySelector('.popup');
+  //  var popup = document.querySelector('.popup');
   /**
   * @function  switchClasses function switches classes when pin activated.
   this function goes up to onclick!
@@ -53,6 +50,8 @@ window.pin = (function () {
     }
     selectedPin = pin;
     selectedPin.classList.add('map__pin--active');
-    popup.classList.remove('hidden');
   }
+  window.pin = {
+    createPins: createPins,
+  };
 })();
