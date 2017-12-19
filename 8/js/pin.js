@@ -1,6 +1,6 @@
 'use strict';
 (function () {
-  var showCard = window.showCard.openPopup;
+//  var showCard = window.showCard.openPopup;
   var fragment = document.createDocumentFragment();
   /**
   * @function createPins function creates Pins.
