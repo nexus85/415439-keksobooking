@@ -17,10 +17,12 @@
     }
 
   };
+
   var closePopupOnEscHandler = function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
       var popup = document.querySelector('.popup');
       popup.parentNode.removeChild(popup);
+      document.removeEventListener('keydown', closePopupOnEscHandler);
     }
   };
 
@@ -39,6 +41,7 @@
     }
   });
   var selectedPin;
+
   /**
   * switchClasses function switches classes when pin activated.
   this function goes up to onclick!
@@ -47,10 +50,11 @@
   function switchClasses(pin) {
     if (selectedPin) {
       selectedPin.classList.remove('map__pin--active');
-      closeAdHandler();
+    //  closeAdHandler();
     }
     selectedPin = pin;
     selectedPin.classList.add('map__pin--active');
+  //  window.showCard.openPopup();
   }
   document.addEventListener('keydown', closePopupOnEscHandler);
 })();

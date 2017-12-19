@@ -18,6 +18,10 @@
     pin.dataset.Id = i;
     image.setAttribute('src', newAd.author.avatar);
     pin.addEventListener('click', function () {
+      var oldPopup = document.querySelector('.popup');
+      if (oldPopup) {
+        oldPopup.parentNode.removeChild(oldPopup);
+      }
       window.showCard.openPopup(newAd);
     });
     return pin;
