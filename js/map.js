@@ -95,7 +95,6 @@
   // backend!!!!!!!!!!!!!
   var onLoad = function (data) {
     window.pin.createPins(data);
-    window.backend.load(window.showCard.openPopup);
   };
 // ////////////////////////////
 })();

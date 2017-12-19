@@ -29,33 +29,7 @@
     }
     document.querySelector('.map__pins').appendChild(fragment);
   };
-  var selectedPin;
-  // parent container
-  var container = document.querySelector('.map__pins');
-  container.addEventListener('click', function (event) {
-    var target = event.target;
-    // cycle goes up from target to parent and container
-    while (target !== container) {
-      if (target.className === 'map__pin' && target.className !== 'map__pin--main') {
-        // found our element
-        switchClasses(target);
-        return;
-      }
-      target = target.parentNode;
-    }
-  });
-  /**
-  * @function  switchClasses function switches classes when pin activated.
-  this function goes up to onclick!
-  */
 
-  function switchClasses(pin) {
-    if (selectedPin) {
-      selectedPin.classList.remove('map__pin--active');
-    }
-    selectedPin = pin;
-    selectedPin.classList.add('map__pin--active');
-  }
   window.pin = {
     createPins: createPins,
   };
