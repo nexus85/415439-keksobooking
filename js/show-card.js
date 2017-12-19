@@ -5,16 +5,14 @@
     openPopup: function (newOfferData) {
       var fragment = document.createDocumentFragment();
       //  var template = document.querySelector('template').content.querySelector('.map__card');
-      for (var i = 0; i < 6; i++) {
-        fragment.appendChild(window.card.createCard(newOfferData[i])); // new card element from template
-        var before = document.querySelector('.map__filters-container');
-        var nodeParent = before.parentNode;
-        nodeParent.insertBefore(fragment, before); // inserts card before .map__filters-container:
-      }
+      fragment.appendChild(window.card.createCard(newOfferData)); // new card element from template
+      var before = document.querySelector('.map__filters-container');
+      var nodeParent = before.parentNode;
+      nodeParent.insertBefore(fragment, before); // inserts card before .map__filters-container:
     }
 
   };
-  window.backend.load(window.showCard.openPopup);
+
   // ///////////////  work with popup ////////////////////////////////
   // popup hidden by default
   var popup = document.querySelector('.popup');
