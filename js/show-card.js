@@ -14,6 +14,7 @@
       nodeParent.insertBefore(fragment, before); // inserts card before .map__filters-container:
       var closePopup = document.querySelector('.popup__close');
       closePopup.addEventListener('click', closeAdHandler);
+      document.addEventListener('keydown', closePopupOnEscHandler);
     }
 
   };
@@ -56,5 +57,4 @@
     selectedPin.classList.add('map__pin--active');
   //  window.showCard.openPopup();
   }
-  document.addEventListener('keydown', closePopupOnEscHandler);
 })();

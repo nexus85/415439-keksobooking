@@ -8,7 +8,6 @@
 
   var createPin = function (newAd, i) {
     var pinY = 40; // pin height in px
-    //  var totalAds = 8;
     var template = document.querySelector('template');
     var pinTemplate = template.content.querySelector('.map__pin');
     var pin = pinTemplate.cloneNode(true);
