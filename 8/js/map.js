@@ -13,15 +13,12 @@
   var MAIN_PIN_WIDTH = 62;
   var ARROW_HEIGHT = 10;
   var mainPin = document.querySelector('.map__pin--main');
-  //  var newAd = window.data.newAd;
-  // var showCard = window.showCard;
   var userPopup = document.querySelector('.map');
   var addressInput = document.querySelector('#address');
 
   /**
-  * @function  activateMap form and map activates on mouseup
+  * function  activateMap form and map activates on mouseup
   */
-
   function activateMapHandler() {
     userPopup.classList.remove('map--faded');
     window.backend.load(onLoad);
@@ -37,7 +34,7 @@
         y: evt.clientY
       };
 
-      var onMouseMove = function (moveEvt) {
+      var mouseMoveHandler = function (moveEvt) {
         moveEvt.preventDefault();
 
         var shift = {
@@ -72,14 +69,14 @@
         addressInput.value = 'x: ' + (coordinateX + MAIN_PIN_WIDTH / 2) + ', y: ' + (coordinateY + MAIN_PIN_HEIGHT + ARROW_HEIGHT);
       };
 
-      var onMouseUp = function (upEvt) {
+      var mouseUpHandler = function (upEvt) {
         upEvt.preventDefault();
-        document.removeEventListener('mousemove', onMouseMove);
-        document.removeEventListener('mouseup', onMouseUp);
+        document.removeEventListener('mousemove', mouseMoveHandler);
+        document.removeEventListener('mouseup', mouseUpHandler);
       };
 
-      document.addEventListener('mousemove', onMouseMove);
-      document.addEventListener('mouseup', onMouseUp);
+      document.addEventListener('mousemove', mouseMoveHandler);
+      document.addEventListener('mouseup', mouseUpHandler);
     });
   }
   // form and map activates on mouseup

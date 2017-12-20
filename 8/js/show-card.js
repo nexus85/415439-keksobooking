@@ -14,6 +14,7 @@
       nodeParent.insertBefore(fragment, before); // inserts card before .map__filters-container:
       var closePopup = document.querySelector('.popup__close');
       closePopup.addEventListener('click', closeAdHandler);
+      document.addEventListener('keydown', closePopupOnEscHandler);
     }
 
   };
@@ -26,35 +27,4 @@
     }
   };
 
-  // parent container
-  var container = document.querySelector('.map__pins');
-  container.addEventListener('click', function (event) {
-    var target = event.target;
-    // cycle goes up from target to parent and container
-    while (target !== container) {
-      if (target.className === 'map__pin' && target.className !== 'map__pin--main') {
-        // found our element
-        switchClasses(target);
-        return;
-      }
-      target = target.parentNode;
-    }
-  });
-  var selectedPin;
-
-  /**
-  * switchClasses function switches classes when pin activated.
-  this function goes up to onclick!
-  @param {target} pin selected pin
-  */
-  function switchClasses(pin) {
-    if (selectedPin) {
-      selectedPin.classList.remove('map__pin--active');
-    //  closeAdHandler();
-    }
-    selectedPin = pin;
-    selectedPin.classList.add('map__pin--active');
-  //  window.showCard.openPopup();
-  }
-  document.addEventListener('keydown', closePopupOnEscHandler);
 })();

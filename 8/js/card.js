@@ -6,13 +6,15 @@
     bungalo: 'Бунгало'
   };
   var template = document.querySelector('template').content.querySelector('.map__card');
+
+  /**
+  * function createCard creates a new card.
+  * @param {array} newOfferData array of new features
+  * @return {object} new card
+  */
   var createCard = function (newOfferData) {
     var card = template.cloneNode(true);
     var popupUl = card.querySelector('.popup__features');
-    //  var target = event.currentTarget;
-    //  var id = target.getAttribute('data-id');
-    //  console.log(target);
-    //  console.log(newOfferData);
     card.querySelector('h3').textContent = newOfferData.offer.title;
     card.querySelector('small').textContent = newOfferData.offer.address;
     card.querySelector('.popup__price').textContent = newOfferData.offer.price + '\u20bd/ночь';
@@ -27,9 +29,10 @@
   };
 
   /**
-  * @function createFeaturesList creates a list and inserts it into the ".popup__features".
+  * function createFeaturesList creates a list and inserts it into the ".popup__features".
+  * @param {array} newFeaturesData array of new features
+  * @return {array} array of new features
   */
-
   function createFeaturesList(newFeaturesData) {
     var featuresDocFragment = document.createDocumentFragment();
 
