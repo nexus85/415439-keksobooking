@@ -3,7 +3,10 @@
 (function () {
   var URL_LOAD = 'https://1510.dump.academy/keksobooking/data';
   var URL_SAVE = 'https://1510.dump.academy/keksobooking';
-  var ACCEPTED = 200;
+  var STATUS_OK = 200;
+  var STATUS_BAD_REQUEST = 400;
+  var STATUS_PAGE_NOT_FOUND = 404;
+  var INTERNAL_SERVER_ERROR = 500;
   var TIMEOUT = 10000;
 
   var setup = function (onLoad, onError) {
@@ -13,16 +16,16 @@
     xhr.addEventListener('load', function () {
       var error;
       switch (xhr.status) {
-        case 200:
+        case STATUS_OK:
           onLoad(xhr.response);
           break;
-        case 400:
+        case STATUS_BAD_REQUEST:
           error = 'Неверный запрос. Вы что-то делаете не так. Мы не виноваты!';
           break;
-        case 404:
+        case STATUS_PAGE_NOT_FOUND:
           error = 'Страница не существует. Возможно, ее удалил Роспотребнадзор.';
           break;
-        case 500:
+        case INTERNAL_SERVER_ERROR:
           error = 'У нас работают криворукие программисты. Обратитесь к конкурентам. Они классные!';
           break;
         default:
@@ -64,6 +67,9 @@
       newError.style.width = '300px';
       newError.textContent = message;
       document.body.appendChild(newError);
+      setTimeout(function () {
+        newError.style.display = 'none';
+      }, 2000);
     }
   };
 })();

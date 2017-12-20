@@ -1,7 +1,5 @@
 'use strict';
-
 //  Validation
-// var formSubmit = noticeForm.querySelector('.form__submit');
 (function () {
   // arrays for validation
   var accomodationType = [
@@ -70,17 +68,13 @@
   // 4.2.2.1 sync for checkin and checkout
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
-
-
   // sync checkin and checkout
   var syncValues = function (element, value) {
     element.value = value;
   };
-
   timeIn.addEventListener('change', function () {
     window.synchronizeFields(timeIn, timeOut, checkin, checkout, syncValues);
   });
-
   timeOut.addEventListener('change', function () {
     window.synchronizeFields(timeOut, timeIn, checkin, checkout, syncValues);
   });
@@ -89,49 +83,43 @@
   // 4.2.2.2 sync for type and price
   var typeSelect = noticeForm.querySelector('#type');
   var priceSelect = noticeForm.querySelector('#price');
-
   var syncValueWithMin = function (element, value) {
     element.min = value;
   };
-
   typeSelect.addEventListener('change', function () {
     window.synchronizeFields(typeSelect, priceSelect, accomodationType, price, syncValueWithMin);
   });
 
   // 4.2.2.3 sync for rooms and guests
-
   var roomsSelect = noticeForm.querySelector('#room_number');
   var guestsSelect = noticeForm.querySelector('#capacity');
-
   roomsSelect.addEventListener('change', function () {
     window.synchronizeFields(roomsSelect, guestsSelect, roomsNumber, capacity, syncValues);
   });
-
   var titleForm = noticeForm.querySelector('#title');
   var priceForm = noticeForm.querySelector('#price');
 
   /**
-* @function  generateBorder function generates border
-*/
-
+  * function  generateBorder function generates border
+  * @param {object} element invalid object
+  */
   var generateBorder = function (element) {
     element.style.outlineWidth = '2px';
     element.style.outlineColor = 'red';
   };
 
   /**
-* @function  generateBorder function resets border
-*/
-
+  * function  generateBorder function resets border
+  * @param {object} element valid object
+  */
   var resetBorder = function (element) {
     element.style.outlineWidth = '';
     element.style.outlineColor = '';
   };
 
   /**
-* @function  checkTitleValidityHandler function checks title validity
-*/
-
+  * function  checkTitleValidityHandler function checks title validity
+  */
   var checkTitleValidityHadler = function () {
     generateBorder(titleForm);
     if (titleForm.validity.tooShort) {
@@ -148,9 +136,8 @@
   titleForm.addEventListener('keydown', checkTitleValidityHadler);
 
   /**
-* @function  checkTitleValidityHandler function checks price validity
-*/
-
+  * function  checkTitleValidityHandler function checks price validity
+  */
   var checkPriceValidityHandler = function () {
     generateBorder(priceForm);
     if (priceForm.validity.rangeUnderflow) {
@@ -164,18 +151,23 @@
   };
 
   priceForm.addEventListener('invalid', checkPriceValidityHandler);
-
-  // submit form and reset form
-  function popupForSentForm() {
+  /**
+  * function popupForSentForm resets valid form and shows popup for limited time.
+  */
+  var popupForSentForm = function () {
     noticeForm.reset();
     var sentPopup = document.createElement('div');
-    sentPopup.style.position = 'fixed';
-    sentPopup.style = 'margin: 0 auto; padding:10%; text-align:center;';
+    sentPopup.classList.add = 'sentPopup';
+    sentPopup.style = 'z-index: 100; margin: 0 auto; padding:10px; text-align:center; outline: 3px solid orangered; left:40%; top:27%; position: fixed; background-color:white;';
     sentPopup.style.fontSize = '18px';
-    sentPopup.style.width = '30%';
-    sentPopup.textContent = sentPopup;
+    sentPopup.style.width = '300px';
+    sentPopup.textContent = 'Форма успешно отправлена!';
     document.body.appendChild(sentPopup);
-  }
+    setTimeout(function () {
+      sentPopup.style.display = 'none';
+    }, 1000);
+  };
+  // form saves data on server
   noticeForm.addEventListener('submit', function (event) {
     event.preventDefault();
     window.backend.save(new FormData(noticeForm), popupForSentForm, window.backend.errorMessage);
