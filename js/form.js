@@ -164,4 +164,20 @@
   };
 
   priceForm.addEventListener('invalid', checkPriceValidityHandler);
+
+  // submit form and reset form
+  function popupForSentForm() {
+    noticeForm.reset();
+    var sentPopup = document.createElement('div');
+    sentPopup.style.position = 'fixed';
+    sentPopup.style = 'margin: 0 auto; padding:10%; text-align:center;';
+    sentPopup.style.fontSize = '18px';
+    sentPopup.style.width = '30%';
+    sentPopup.textContent = sentPopup;
+    document.body.appendChild(sentPopup);
+  }
+  noticeForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    window.backend.save(new FormData(noticeForm), popupForSentForm, window.backend.errorMessage);
+  });
 })();
