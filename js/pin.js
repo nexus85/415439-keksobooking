@@ -1,34 +1,43 @@
 'use strict';
-window.pin = (function () {
-/**
-* @function createPins function creates Pins.
-*/
-
-  window.createPins = function (newAd, showCard) {
-    var pinY = 40; // pin height in px
-    var totalAds = 8;
-    var mapPins = document.querySelector('.map__pins');
-    var fragment = document.createDocumentFragment();
-    var templatePin = document.querySelector('template').content.querySelector('.map__pin');
-    for (var i = 0; i < totalAds; i++) {
-      var pin = mapPins.appendChild(templatePin.cloneNode(true));
-      var image = pin.getElementsByTagName('img')[0];
-      pin.setAttribute('style', 'left:' + newAd[i].location.x + 'px;' + 'top:' + (newAd[i].location.y + pinY) + 'px;');
-      pin.setAttribute('data-id', i);
-      image.setAttribute('src', newAd[i]. author.avatar);
-      pin.addEventListener('click', showCard);
-      fragment.appendChild(pin);
-      mapPins.appendChild(fragment);
-    }
-  };
-  var selectedPin;
-  // parent container
-  var container = document.querySelector('.map__pins');
-
+(function () {
+  var fragment = document.createDocumentFragment();
   /**
-  * @function  addEventListener function shows advertisement adn switches classes when pin activated.
-    @param {object} event - event
+  * function createPins function creates Pin.
+  * @param {array} newAds remote data array from server
+  * @param {number} i number of element in array
+  * @return {element} created pin
   */
+  var createPin = function (newAds, i) {
+    var pinY = 40; // pin height in px
+    var template = document.querySelector('template');
+    var pinTemplate = template.content.querySelector('.map__pin');
+    var pin = pinTemplate.cloneNode(true);
+    var image = pin.getElementsByTagName('img')[0];
+    pin.setAttribute('style', 'left:' + newAds.location.x + 'px;' + 'top:' + (newAds.location.y + pinY) + 'px;');
+    pin.dataset.Id = i;
+    image.setAttribute('src', newAds.author.avatar);
+    pin.addEventListener('click', function () { // event listener for click on pin
+      var oldPopup = document.querySelector('.popup');
+      if (oldPopup) {
+        oldPopup.parentNode.removeChild(oldPopup);
+      }
+      window.showCard.openPopup(newAds);
+    });
+    return pin;
+  };
+  /**
+  * function renderPins function renders pins and appends it into html document
+  * @param {array} cardsArray
+  */
+  var renderPins = function (cardsArray) {
+    for (var i = 0; i < cardsArray.length; i++) {
+      fragment.appendChild(createPin(cardsArray[i], i));
+    }
+    document.querySelector('.map__pins').appendChild(fragment);
+  };
+
+  // function responsible for switches classes between pins.
+  var container = document.querySelector('.map__pins'); // parent container
   container.addEventListener('click', function (event) {
     var target = event.target;
     // cycle goes up from target to parent and container
@@ -41,18 +50,20 @@ window.pin = (function () {
       target = target.parentNode;
     }
   });
-  var popup = document.querySelector('.popup');
-  /**
-  * @function  switchClasses function switches classes when pin activated.
-  this function goes up to onclick!
-  */
+  var selectedPin;
 
+  /**
+  * switchClasses function switches classes when pin activated.
+  * @param {target} pin selected pin
+  */
   function switchClasses(pin) {
     if (selectedPin) {
       selectedPin.classList.remove('map__pin--active');
     }
     selectedPin = pin;
     selectedPin.classList.add('map__pin--active');
-    popup.classList.remove('hidden');
   }
+  window.pin = {
+    createPins: renderPins,
+  };
 })();
