@@ -30,10 +30,32 @@
   * @param {array} cardsArray
   */
   var renderPins = function (cardsArray) {
+    removePins();
+    //    console.log(cardsArray);
     for (var i = 0; i < cardsArray.length; i++) {
-      fragment.appendChild(createPin(cardsArray[i], i));
+      if (iCanSeeIt(cardsArray[i])) {
+        fragment.appendChild(createPin(cardsArray[i], i));
+      }
     }
     document.querySelector('.map__pins').appendChild(fragment);
+  };
+
+  var iCanSeeIt = function (card) {
+    var formFilter = document.querySelector('.map__filters');
+    var housingType = formFilter.querySelector('select[name=housing-type]').value;
+    if (housingType !== 'any' && housingType !== card.offer.type) {
+      return false;
+    }
+    return true;
+  };
+
+  var removePins = function () {
+    var pins = document.querySelectorAll('.map__pin');
+    pins.forEach(function (it) {
+      if (it.class !== 'map__pin--main') {
+        it.remove();
+      }
+    });
   };
 
   // function responsible for switches classes between pins.

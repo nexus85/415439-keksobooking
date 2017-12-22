@@ -15,7 +15,7 @@
   var mainPin = document.querySelector('.map__pin--main');
   var userPopup = document.querySelector('.map');
   var addressInput = document.querySelector('#address');
-
+  var cardsArray = [];
   /**
   * function  activateMap form and map activates on mouseup
   */
@@ -91,7 +91,12 @@
 
   // backend!!!!!!!!!!!!!
   var onLoad = function (data) {
-    window.pin.createPins(data);
+    cardsArray = data;
+    var filterForm = document.querySelector('.map__filters');
+    filterForm.addEventListener('change', function () {
+      window.pin.createPins(cardsArray);
+    });
+    window.pin.createPins(cardsArray);
   };
 // ////////////////////////////
 })();
