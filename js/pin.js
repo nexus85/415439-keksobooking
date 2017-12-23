@@ -31,28 +31,66 @@
   */
   var renderPins = function (cardsArray) {
     removePins();
+    var filteredCards = [];
     //    console.log(cardsArray);
     for (var i = 0; i < cardsArray.length; i++) {
       if (iCanSeeIt(cardsArray[i])) {
-        fragment.appendChild(createPin(cardsArray[i], i));
+        filteredCards.push(cardsArray[i]);
       }
     }
+    filteredCards.slice(0, 5).forEach(function (pin, index) {
+      fragment.appendChild(createPin(pin, index));
+    });
     document.querySelector('.map__pins').appendChild(fragment);
   };
+  var getPriceRange = function (price) {
+    if (price < 10000) {
+      return 'low';
+    } else if (price > 50000) {
+      return 'high';
+    }
+    return 'middle';
+  };
+
 
   var iCanSeeIt = function (card) {
     var formFilter = document.querySelector('.map__filters');
     var housingType = formFilter.querySelector('select[name=housing-type]').value;
+    var housingGuests = formFilter.querySelector('select[name=housing-guests]').value;
+    var hounsingRooms = formFilter.querySelector('select[name=housing-rooms]').value;
+    var housingPrice = formFilter.querySelector('select[name=housing-price]').value;
+    var housingFeatures = formFilter.querySelector('#housing-features');
+    var features = housingFeatures.querySelectorAll('input[type="checkbox"]');
     if (housingType !== 'any' && housingType !== card.offer.type) {
       return false;
+    }
+    if (housingGuests !== 'any' && housingGuests !== card.offer.guests.toString()) {
+      return false;
+    }
+    if (hounsingRooms !== 'any' && hounsingRooms !== card.offer.rooms.toString()) {
+      return false;
+    }
+    if (housingPrice !== 'any' && housingPrice !== getPriceRange(card.offer.price)) {
+      return false;
+    }
+    for (var k in features) {
+      if (features.hasOwnProperty(k)) {
+        var feature = features[k];
+        if (feature.checked && card.offer.features.includes(feature.value) !== true) {
+          return false;
+        }
+      }
     }
     return true;
   };
 
+
+  // removes all pins before creating new pins from new array
   var removePins = function () {
     var pins = document.querySelectorAll('.map__pin');
+    var mainPin = document.querySelector('.map__pin--main');
     pins.forEach(function (it) {
-      if (it.class !== 'map__pin--main') {
+      if (it !== mainPin) {
         it.remove();
       }
     });
