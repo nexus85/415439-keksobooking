@@ -94,7 +94,7 @@
     cardsArray = data;
     var filterForm = document.querySelector('.map__filters');
     filterForm.addEventListener('change', function () {
-      window.pin.createPins(cardsArray);
+      window.debounce(window.pin.createPins(cardsArray));
     });
     window.pin.createPins(cardsArray);
   };
