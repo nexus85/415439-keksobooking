@@ -24,7 +24,7 @@
   */
   function activateMapHandler() {
     userPopup.classList.remove('map--faded');
-    window.backend.load(onLoad, window.backend.errorMessage);
+    window.backend.load(contentLoadHandler, window.backend.errorMessage);
     mainPin.removeEventListener('keydown', activateMapOnEnterHandler);
     mainPin.removeEventListener('mouseup', activateMapHandler);
     window.form.activateForm();
@@ -92,8 +92,11 @@
   };
   mainPin.addEventListener('keydown', activateMapOnEnterHandler);
 
-  // backend
-  var onLoad = function (data) {
+  /**
+  * function contentLoadHandler works if download from server was succesfull
+  * @param {array} data data we received from server
+  */
+  var contentLoadHandler = function (data) {
     cardsArray = data;
     var filterForm = document.querySelector('.map__filters');
     filterForm.addEventListener('change', function () {

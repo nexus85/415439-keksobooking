@@ -23,7 +23,9 @@
     });
     return pin;
   };
-  // function closes old popup
+  /**
+  * function closeOldPopup closes old popup
+  */
   var closeOldPopup = function () {
     var oldPopup = document.querySelector('.popup');
     if (oldPopup) {
@@ -38,7 +40,6 @@
     removePins();
     closeOldPopup();
     var filteredCards = []; // array for filtered cards
-    //    console.log(cardsArray);
     for (var i = 0; i < cardsArray.length; i++) {
       if (window.filter.filterCards(cardsArray[i])) {
         filteredCards.push(cardsArray[i]);
@@ -49,8 +50,9 @@
     });
     document.querySelector('.map__pins').appendChild(fragment);
   };
-
-  // removes all pins before creating new pins from new array
+  /**
+  * function removePins removes all pins before creating new pins from new array
+  */
   var removePins = function () {
     var pins = document.querySelectorAll('.map__pin');
     var mainPin = document.querySelector('.map__pin--main');
@@ -80,13 +82,13 @@
   * switchClasses function switches classes when pin activated.
   * @param {target} pin selected pin
   */
-  function switchClasses(pin) {
+  var switchClasses = function (pin) {
     if (selectedPin) {
       selectedPin.classList.remove('map__pin--active');
     }
     selectedPin = pin;
     selectedPin.classList.add('map__pin--active');
-  }
+  };
   window.pin = {
     renderPins: renderPins,
   };
