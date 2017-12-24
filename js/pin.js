@@ -18,7 +18,7 @@
     pin.dataset.Id = i;
     image.setAttribute('src', newAds.author.avatar);
     pin.addEventListener('click', function () { // event listener for click on pin
-      closeOldPopup();
+      closeOldPopup(); // closes existing popup
       window.showCard.openPopup(newAds);
     });
     return pin;
@@ -37,7 +37,7 @@
   var renderPins = function (cardsArray) {
     removePins();
     closeOldPopup();
-    var filteredCards = [];
+    var filteredCards = []; // array for filtered cards
     //    console.log(cardsArray);
     for (var i = 0; i < cardsArray.length; i++) {
       if (window.filter.filterCards(cardsArray[i])) {
@@ -88,6 +88,6 @@
     selectedPin.classList.add('map__pin--active');
   }
   window.pin = {
-    createPins: renderPins,
+    renderPins: renderPins,
   };
 })();

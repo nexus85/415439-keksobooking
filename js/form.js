@@ -160,7 +160,7 @@
     noticeForm.reset();
     window.map.mainPin.style.left = MAIN_PIN_RESET_LEFT;
     window.map.mainPin.style.top = MAIN_PIN_RESET_TOP;
-    window.map.address.value = 'x: 572' + ', y: 447';
+    window.map.address.value = 'x: 630' + ', y: 447';
     var sentPopup = document.createElement('div');
     sentPopup.classList.add = 'sentPopup';
     sentPopup.style = 'z-index: 100; margin: 0 auto; padding:10px; text-align:center; outline: 3px solid orangered; left:40%; top:27%; position: fixed; background-color:white;';
