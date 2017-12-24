@@ -1,6 +1,7 @@
 'use strict';
 (function () {
   var fragment = document.createDocumentFragment();
+  var selectedPin;
   /**
   * function createPins function creates Pin.
   * @param {array} newAds remote data array from server
@@ -62,8 +63,8 @@
 
   // function responsible for switches classes between pins.
   var container = document.querySelector('.map__pins'); // parent container
-  container.addEventListener('click', function (event) {
-    var target = event.target;
+  container.addEventListener('click', function (evt) {
+    var target = evt.target;
     // cycle goes up from target to parent and container
     while (target !== container) {
       if (target.className === 'map__pin' && target.className !== 'map__pin--main') {
@@ -74,7 +75,6 @@
       target = target.parentNode;
     }
   });
-  var selectedPin;
 
   /**
   * switchClasses function switches classes when pin activated.
