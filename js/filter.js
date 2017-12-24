@@ -1,5 +1,6 @@
 'use strict';
 (function () {
+  var formFilter = document.querySelector('.map__filters');
 
   // function getPriceRange converts numbers to words
   var getPriceRange = function (price) {
@@ -14,7 +15,6 @@
 
   // function filterCards filters cards based on users choice
   var filterCards = function (card) {
-    var formFilter = document.querySelector('.map__filters');
     var housingType = formFilter.querySelector('select[name=housing-type]').value;
     var housingGuests = formFilter.querySelector('select[name=housing-guests]').value;
     var hounsingRooms = formFilter.querySelector('select[name=housing-rooms]').value;
@@ -45,6 +45,7 @@
   };
 
   window.filter = {
-    filterCards: filterCards
+    filterCards: filterCards,
+    formFilter: formFilter
   };
 })();

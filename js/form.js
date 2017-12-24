@@ -1,6 +1,8 @@
 'use strict';
 //  Validation
 (function () {
+  var MAIN_PIN_RESET_LEFT = 50 + '%';
+  var MAIN_PIN_RESET_TOP = 375 + 'px';
   // arrays for validation
   var accomodationType = [
     'bungalo',
@@ -152,10 +154,13 @@
 
   priceForm.addEventListener('invalid', checkPriceValidityHandler);
   /**
-  * function popupForSentForm resets valid form and shows popup for limited time.
+  * function resetForm resets valid form and shows popup for limited time.
   */
-  var popupForSentForm = function () {
+  var resetForm = function () {
     noticeForm.reset();
+    window.map.mainPin.style.left = MAIN_PIN_RESET_LEFT;
+    window.map.mainPin.style.top = MAIN_PIN_RESET_TOP;
+    window.map.address.value = 'x: 572' + ', y: 447';
     var sentPopup = document.createElement('div');
     sentPopup.classList.add = 'sentPopup';
     sentPopup.style = 'z-index: 100; margin: 0 auto; padding:10px; text-align:center; outline: 3px solid orangered; left:40%; top:27%; position: fixed; background-color:white;';
@@ -170,6 +175,6 @@
   // form saves data on server
   noticeForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    window.backend.save(new FormData(noticeForm), popupForSentForm, window.backend.errorMessage);
+    window.backend.save(new FormData(noticeForm), resetForm, window.backend.errorMessage);
   });
 })();

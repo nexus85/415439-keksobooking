@@ -15,13 +15,16 @@
   var mainPin = document.querySelector('.map__pin--main');
   var userPopup = document.querySelector('.map');
   var addressInput = document.querySelector('#address');
+  var coordinateX = mainPin.offsetLeft;
+  var coordinateY = mainPin.offsetTop;
   var cardsArray = [];
+  addressInput.value = 'x: ' + (coordinateX + MAIN_PIN_WIDTH / 2) + ', y: ' + (coordinateY + MAIN_PIN_HEIGHT + ARROW_HEIGHT);
   /**
   * function  activateMap form and map activates on mouseup
   */
   function activateMapHandler() {
     userPopup.classList.remove('map--faded');
-    window.backend.load(onLoad);
+    window.backend.load(onLoad, window.backend.errorMessage);
     mainPin.removeEventListener('keydown', activateMapOnEnterHandler);
     mainPin.removeEventListener('mouseup', activateMapHandler);
     window.form.activateForm();
@@ -46,8 +49,8 @@
           x: moveEvt.clientX,
           y: moveEvt.clientY
         };
-        var coordinateX = mainPin.offsetLeft - shift.x;
-        var coordinateY = mainPin.offsetTop - shift.y;
+        coordinateX = mainPin.offsetLeft - shift.x;
+        coordinateY = mainPin.offsetTop - shift.y;
         // sets X boundries
         if (coordinateX < LOCATION_X_LIMITS.min) {
           mainPin.style.left = LOCATION_X_LIMITS.min + 'px';
@@ -98,5 +101,8 @@
     });
     window.pin.createPins(cardsArray);
   };
-// ////////////////////////////
+  window.map = {
+    mainPin: mainPin,
+    address: addressInput
+  };
 })();

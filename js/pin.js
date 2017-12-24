@@ -4,7 +4,7 @@
   /**
   * function createPins function creates Pin.
   * @param {array} newAds remote data array from server
-  * @param {number} i number of element in array
+  * @param {number} i number of an element in array
   * @return {element} created pin
   */
   var createPin = function (newAds, i) {
@@ -22,6 +22,7 @@
     });
     return pin;
   };
+  // function closes old popup
   var closeOldPopup = function () {
     var oldPopup = document.querySelector('.popup');
     if (oldPopup) {
