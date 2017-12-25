@@ -33,7 +33,7 @@
   * @param {array} newFeaturesData array of new features
   * @return {array} array of new features
   */
-  function createFeaturesList(newFeaturesData) {
+  var createFeaturesList = function (newFeaturesData) {
     var featuresDocFragment = document.createDocumentFragment();
 
     for (var k = 0; k < newFeaturesData.length; k++) {
@@ -42,7 +42,7 @@
       featuresDocFragment.appendChild(featureTag);
     }
     return featuresDocFragment;
-  }
+  };
   window.card = {
     createCard: createCard
   };

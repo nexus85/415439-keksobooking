@@ -8,6 +8,7 @@
   var STATUS_PAGE_NOT_FOUND = 404;
   var INTERNAL_SERVER_ERROR = 500;
   var TIMEOUT = 10000;
+  var ERROR_TIMEOUT = 2000;
 
   var setup = function (onLoad, onError) {
     var xhr = new XMLHttpRequest();
@@ -69,7 +70,7 @@
       document.body.appendChild(newError);
       setTimeout(function () {
         newError.style.display = 'none';
-      }, 2000);
+      }, ERROR_TIMEOUT);
     }
   };
 })();
