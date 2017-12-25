@@ -1,5 +1,6 @@
 'use strict';
 (function () {
+  var MAX_PINS_NUMBER = 5;
   var fragment = document.createDocumentFragment();
   var selectedPin;
   /**
@@ -45,7 +46,7 @@
         filteredCards.push(cardsArray[i]);
       }
     }
-    filteredCards.slice(0, 5).forEach(function (pin, index) {
+    filteredCards.slice(0, MAX_PINS_NUMBER).forEach(function (pin, index) {
       fragment.appendChild(createPin(pin, index));
     });
     document.querySelector('.map__pins').appendChild(fragment);

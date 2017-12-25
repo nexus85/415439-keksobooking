@@ -3,6 +3,9 @@
 (function () {
   var MAIN_PIN_RESET_LEFT = 50 + '%';
   var MAIN_PIN_RESET_TOP = 375 + 'px';
+  var RESET_FORM_TIMEOUT = 1000;
+  var ADDRESS_VALUE_X = 630;
+  var ADDRESS_VALUE_Y = 447;
   // arrays for validation
   var accomodationType = [
     'bungalo',
@@ -160,7 +163,7 @@
     noticeForm.reset();
     window.map.mainPin.style.left = MAIN_PIN_RESET_LEFT;
     window.map.mainPin.style.top = MAIN_PIN_RESET_TOP;
-    window.map.address.value = 'x: 630' + ', y: 447';
+    window.map.address.value = 'x: ' + ADDRESS_VALUE_X + ', y: ' + ADDRESS_VALUE_Y;
     var sentPopup = document.createElement('div');
     sentPopup.classList.add = 'sentPopup';
     sentPopup.style = 'z-index: 100; margin: 0 auto; padding:10px; text-align:center; outline: 3px solid orangered; left:40%; top:27%; position: fixed; background-color:white;';
@@ -170,7 +173,7 @@
     document.body.appendChild(sentPopup);
     setTimeout(function () {
       sentPopup.style.display = 'none';
-    }, 1000);
+    }, RESET_FORM_TIMEOUT);
   };
   // form saves data on server
   noticeForm.addEventListener('submit', function (event) {
