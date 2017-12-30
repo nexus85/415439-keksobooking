@@ -75,7 +75,7 @@
     window.synchronizeFields(timeIn, timeOut, checkinTimes, checkoutTimes, syncValues);
     window.synchronizeFields(timeOut, timeIn, checkinTimes, checkoutTimes, syncValues);
     window.synchronizeFields(typeSelect, priceSelect, accomodationTypes, prices, syncValueWithMin);
-    window.synchronizeFields(roomsSelect, guestsSelect, numberOfRooms, capacity, syncValues);
+    window.synchronizeFields(roomsSelect, guestsSelect, numberOfRooms, capacity, syncRoomsAndGuests);
   };
   // 4.2.2.1 sync for checkin and checkout
   var timeIn = document.querySelector('#timein');
