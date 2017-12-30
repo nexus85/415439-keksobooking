@@ -15,7 +15,7 @@
         return fileName.endsWith(item);
       });
 
-      if (matches && typeof cb === 'function') {
+      if (matches) {
         var reader = new FileReader();
 
         reader.addEventListener('load', function () {
@@ -47,7 +47,7 @@
   // event listeners
   avatarChooser.addEventListener('change', avatarUploadHandler);
   imagesChooser.addEventListener('change', function () {
-    var pictures = [].map.call(imagesChooser.files, function (picture) {
+    var pictures = [].slice.call(imagesChooser.files, function (picture) {
       return picture;
     });
     uploadAdPictures(pictures);
