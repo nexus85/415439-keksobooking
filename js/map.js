@@ -5,6 +5,7 @@
     min: 100,
     max: 500
   };
+  var OFFSET = 72;
   var LOCATION_X_LIMITS = {
     min: 40,
     max: 1150
@@ -18,6 +19,7 @@
   var coordinateX = mainPin.offsetLeft;
   var coordinateY = mainPin.offsetTop;
   var cardsArray = [];
+  addressInput.readOnly = true;
   addressInput.value = 'x: ' + (coordinateX + MAIN_PIN_WIDTH / 2) + ', y: ' + (coordinateY + MAIN_PIN_HEIGHT + ARROW_HEIGHT);
   /**
   * function  activateMap form and map activates on mouseup
@@ -28,6 +30,7 @@
     mainPin.removeEventListener('keydown', activateMapOnEnterHandler);
     mainPin.removeEventListener('mouseup', activateMapHandler);
     window.form.activateForm();
+    window.form.syncFields();
   }
   // drag and drop
   mainPin.addEventListener('mousedown', function (evt) {
@@ -70,7 +73,7 @@
       }
 
       // coordinates goes to input 'address'
-      addressInput.value = 'x: ' + (coordinateX + MAIN_PIN_WIDTH / 2) + ', y: ' + (coordinateY + MAIN_PIN_HEIGHT + ARROW_HEIGHT);
+      addressInput.value = 'x: ' + (coordinateX + MAIN_PIN_WIDTH / 2) + ', y: ' + (coordinateY - OFFSET + MAIN_PIN_HEIGHT + ARROW_HEIGHT);
     };
 
     var mouseUpHandler = function (upEvt) {
@@ -100,9 +103,9 @@
     cardsArray = data;
     var filterForm = document.querySelector('.map__filters');
     filterForm.addEventListener('change', function () {
-      window.debounce(window.pin.renderPins(cardsArray));
+      window.debounce(window.pin.render(cardsArray));
     });
-    window.pin.renderPins(cardsArray);
+    window.pin.render(cardsArray);
   };
   window.map = {
     mainPin: mainPin,
