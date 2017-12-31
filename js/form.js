@@ -57,7 +57,6 @@
   }
 
   // activates form
-
   var activateForm = function () {
     fieldsetNotice.disabled = false;
     fieldsetFilter.disabled = false;

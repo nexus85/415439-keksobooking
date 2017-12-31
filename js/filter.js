@@ -20,8 +20,8 @@
   // function filterCards filters cards based on users choice
   var filterCards = function (card) {
     var housingType = formFilter.querySelector('select[name=housing-type]').value;
-    var housingGuests = formFilter.querySelector('select[name=housing-guests]').value;
-    var housingRooms = formFilter.querySelector('select[name=housing-rooms]').value;
+    var housingGuests = formFilter.querySelector('select[name=housing-guests]').value.toString();
+    var housingRooms = formFilter.querySelector('select[name=housing-rooms]').value.toString();
     var housingPrice = formFilter.querySelector('select[name=housing-price]').value;
     for (var k in features) {
       if (features.hasOwnProperty(k)) {
@@ -31,6 +31,7 @@
         }
       }
     }
+
     return (housingType === 'any' || card.offer.type === housingType)
       && (housingGuests === 'any' || card.offer.guests === +housingGuests)
       && (housingRooms === 'any' || card.offer.rooms === +housingRooms)
