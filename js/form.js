@@ -3,7 +3,7 @@
 (function () {
   var MAIN_PIN_RESET_LEFT = 50 + '%';
   var MAIN_PIN_RESET_TOP = 375 + 'px';
-  var RESET_FORM_TIMEOUT = 1000;
+  var DEFAULT_AVATAR_SRC = 'img/muffin.png';
   var ADDRESS_VALUE_X = 630;
   var ADDRESS_VALUE_Y = 447;
   // arrays for validation
@@ -50,6 +50,7 @@
   var fieldsetNotice = document.querySelector('.notice__header');
   fieldsetNotice.disabled = true;
   var noticeForm = document.querySelector('.notice__form');
+  var cleanForm = noticeForm.querySelector('.form__reset');
   // makes disabled all fieldsets
   var formElement = document.querySelectorAll('.form__element');
   for (var k = 0; k < formElement.length; k++) {
@@ -57,7 +58,6 @@
   }
 
   // activates form
-
   var activateForm = function () {
     fieldsetNotice.disabled = false;
     fieldsetFilter.disabled = false;
@@ -191,21 +191,18 @@
     window.map.mainPin.style.top = MAIN_PIN_RESET_TOP;
     window.map.address.value = 'x: ' + ADDRESS_VALUE_X + ', y: ' + ADDRESS_VALUE_Y;
     synchronizeFields();
-    var sentPopup = document.createElement('div');
-    sentPopup.classList.add = 'sentPopup';
-    sentPopup.style = 'z-index: 100; margin: 0 auto; padding:10px; text-align:center; outline: 3px solid orangered; left:40%; top:27%; position: fixed; background-color:white;';
-    sentPopup.style.fontSize = '18px';
-    sentPopup.style.width = '300px';
-    sentPopup.textContent = 'Форма успешно отправлена!';
-    document.body.appendChild(sentPopup);
-    setTimeout(function () {
-      document.body.removeChild(sentPopup);
-    }, RESET_FORM_TIMEOUT);
+    window.pictures.avatar.src = DEFAULT_AVATAR_SRC;
+    window.pictures.clear(window.pictures.photoElements);
   };
+
   // form saves data on server
   noticeForm.addEventListener('submit', function (event) {
     event.preventDefault();
     window.backend.save(new FormData(noticeForm), resetForm, window.backend.errorMessage);
+  });
+  cleanForm.addEventListener('click', function (event) {
+    event.preventDefault();
+    resetForm();
   });
   window.form = {
     syncFields: synchronizeFields,

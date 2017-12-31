@@ -44,12 +44,21 @@
       });
     });
   };
+  var clearPictures = function (picturesField) {
+    var images = picturesField.querySelectorAll('img');
+    Array.prototype.forEach.call(images, function (image) {
+      picturesField.removeChild(image);
+    });
+  };
   // event listeners
   avatarChooser.addEventListener('change', avatarUploadHandler);
   imagesChooser.addEventListener('change', function () {
-    var pictures = [].slice.call(imagesChooser.files, function (picture) {
-      return picture;
-    });
+    var pictures = [].slice.call(imagesChooser.files);
     uploadAdPictures(pictures);
   });
+  window.pictures = {
+    clear: clearPictures,
+    photoElements: photoContainer,
+    avatar: avatarPreview
+  };
 })();

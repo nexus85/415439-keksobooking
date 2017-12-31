@@ -5,6 +5,10 @@
   var formFilter = document.querySelector('.map__filters');
   var housingFeatures = formFilter.querySelector('#housing-features');
   var features = housingFeatures.querySelectorAll('input[type="checkbox"]');
+  var housingType = formFilter.querySelector('select[name=housing-type]');
+  var housingGuests = formFilter.querySelector('select[name=housing-guests]');
+  var housingRooms = formFilter.querySelector('select[name=housing-rooms]');
+  var housingPrice = formFilter.querySelector('select[name=housing-price]');
 
 
   // function getPriceRange converts numbers to words
@@ -19,10 +23,6 @@
 
   // function filterCards filters cards based on users choice
   var filterCards = function (card) {
-    var housingType = formFilter.querySelector('select[name=housing-type]').value;
-    var housingGuests = formFilter.querySelector('select[name=housing-guests]').value;
-    var housingRooms = formFilter.querySelector('select[name=housing-rooms]').value;
-    var housingPrice = formFilter.querySelector('select[name=housing-price]').value;
     for (var k in features) {
       if (features.hasOwnProperty(k)) {
         var feature = features[k];
@@ -31,10 +31,11 @@
         }
       }
     }
-    return (housingType === 'any' || card.offer.type === housingType)
-      && (housingGuests === 'any' || card.offer.guests === +housingGuests)
-      && (housingRooms === 'any' || card.offer.rooms === +housingRooms)
-      && (housingPrice === 'any' || housingPrice === getPriceRange(card.offer.price));
+
+    return (housingType.value === 'any' || card.offer.type === housingType.value)
+      && (housingGuests.value === 'any' || card.offer.guests === +housingGuests.value)
+      && (housingRooms.value === 'any' || card.offer.rooms === +housingRooms.value)
+      && (housingPrice.value === 'any' || housingPrice.value === getPriceRange(card.offer.price));
   };
 
   window.filter = {
